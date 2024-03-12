@@ -1,3 +1,27 @@
+# Docker Compose Configuration for Orchestrating Multiple Docker Containers
+#
+# This docker-compose.yaml file is used to define a multi-container Docker application
+# consisting of three services: supplierservice, consumerservice and db-consumer.
+#
+# Three Docker services:
+# supplierservice: This service represents the supplier service container. It is built
+# from the Dockerfile located in the ./supplier-service directory. It exposes port 8081
+# on the host and depends on the db-consumer service. It is configured with environment
+# variables for connecting to the PostgreSQL database container.
+#
+# consumerservice: This service represents the consumer service container. It is built
+# from the Dockerfile located in the ./consumer-service directory. It exposes port 8083
+# on the host and depends on the supplierservice service. It is part of the proxy.network
+# Docker network.
+#
+# db-consumer: This service represents the PostgreSQL database container for the consumer
+# service. It uses the official PostgreSQL Docker image 'postgres:13.1-alpine'. It exposes
+# port 5432 on the host and is configured with environment variables for initializing the
+# PostgreSQL database.
+#
+# The networks section defines a custom Docker network named 'proxy.network' with the bridge
+# driver. Both the supplierservice and db-consumer services are part of this network to enable
+# communication between them.
 version: '3.8'
 
 services:

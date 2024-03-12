@@ -9,16 +9,37 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service class responsible for handling operations related to categories.
+ * This class implements business logic for CRUD operations.
+ *
+ *
+ * @see org.springframework.stereotype.Service
+ * @see lombok.extern.slf4j.Slf4j
+ * @see CategoryRepository
+ */
 @Slf4j
 @Service
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
+    /**
+     * Constructs a new CategoryService with the specified CategoryRepository.
+     *
+     * @param categoryRepository the repository for accessing and managing category data
+     */
     public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
+    /**
+     * Creates a new category based on the provided category DTO.
+     *
+     * @param categoryDto the DTO containing information about the category to be created
+     * @return the created category
+     * @throws CategoryServiceException if an error occurs while creating the category
+     */
     public Category createCategory(CategoryDto categoryDto) {
         try {
             if (categoryRepository.existsById(categoryDto.getId())) {
@@ -39,6 +60,12 @@ public class CategoryService {
         }
     }
 
+    /**
+     * Get a list of all category.
+     *
+     * @return a list of category
+     * @throws CategoryServiceException if an error occurs while getting list
+     */
     public List<Category> getAllCategories() {
         try {
             return categoryRepository.findAll();
@@ -49,6 +76,13 @@ public class CategoryService {
         }
     }
 
+    /**
+     * Get category by id.
+     *
+     * @param id the id of category to be got
+     * @return the gotten category
+     * @throws CategoryServiceException if an error occurs while creating the category
+     */
     public Category getCategoryById(Long id) {
         try {
             return categoryRepository.findById(id).orElse(null);
@@ -59,6 +93,14 @@ public class CategoryService {
         }
     }
 
+    /**
+     * Updates category based on the provided category DTO and id.
+     *
+     * @param id the id of category to be updated
+     * @param categoryDto the DTO containing information about the category to be updated
+     * @return the updated category
+     * @throws CategoryServiceException if an error occurs while updating the category
+     */
     public Category updateCategory(Long id, CategoryDto categoryDto) {
         try {
             Category category = getCategoryById(id);
@@ -76,6 +118,12 @@ public class CategoryService {
         return null;
     }
 
+    /**
+     * Deletes a category with the specified ID.
+     *
+     * @param id the ID of the category to delete
+     * @throws CategoryServiceException if an error occurs while deleting the category
+     */
     public void deleteCategory(Long id) {
         try {
             Category category = getCategoryById(id);

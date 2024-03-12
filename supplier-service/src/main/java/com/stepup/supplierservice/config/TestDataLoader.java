@@ -9,6 +9,20 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
+/**
+ * Component class responsible for loading test data into the Category and Product repositories.
+ * This class is annotated with {@link org.springframework.stereotype.Component} to indicate
+ * that it should be automatically detected and registered as a Spring bean during component scanning.
+ * It implements {@link org.springframework.boot.CommandLineRunner} to execute the data loading logic
+ * when the Spring Boot application starts.
+ *
+ * @see org.springframework.stereotype.Component
+ * @see org.springframework.boot.CommandLineRunner
+ * @see CategoryRepository
+ * @see ProductRepository
+ * @see Category
+ * @see Product
+ */
 @Component
 public class TestDataLoader implements CommandLineRunner {
 
@@ -16,17 +30,33 @@ public class TestDataLoader implements CommandLineRunner {
 
     private final ProductRepository productRepository;
 
+    /**
+     * Constructs a new TestDataLoader with the specified CategoryRepository and ProductRepository.
+     *
+     * @param categoryRepository the repository for Category entities
+     * @param productRepository  the repository for Product entities
+     */
     public TestDataLoader(CategoryRepository categoryRepository, ProductRepository productRepository) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
     }
 
+    /**
+     * Executes the data loading logic when the Spring Boot application starts.
+     *
+     * @param args the command-line arguments passed to the application
+     * @throws Exception if an error occurs during data loading
+     */
     @Override
     public void run(String... args) throws Exception {
         // Load test data
         loadTestData();
     }
 
+    /**
+     * Loads test data into the Category and Product repositories.
+     * Creates categories and products, and saves them to the repositories.
+     */
     private void loadTestData() {
         // Create categories
         Category category1 = new Category();
