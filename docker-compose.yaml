@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  supplierservice:
+    container_name: supplier-service
+    build: ./supplier-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db-consumer
+    environment:
+      DB_HOST: database
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: db
+    networks:
+      - proxy.network
+
+  consumerservice:
+    container_name: consumer-service
+    build: ./consumer-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - supplierservice
+    networks:
+      - proxy.network
+
+  db-consumer:
+    container_name: db-consumer
+    image: 'postgres:13.1-alpine'
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - proxy.network
+
+networks:
+  proxy.network:
+    driver: bridge
