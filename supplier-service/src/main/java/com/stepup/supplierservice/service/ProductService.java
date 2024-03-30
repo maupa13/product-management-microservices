@@ -123,8 +123,9 @@ public class ProductService {
                 product.setPrice(productDetails.getPrice());
                 productRepository.save(product);
                 return mapToProductDto(product);
+            } else {
+                throw new ProductServiceException("Failed to update product");
             }
-            return null;
         } catch (Exception e) {
             log.error("Failed to update product: " + e.getMessage());
             throw new ProductServiceException("Failed to update product: "
