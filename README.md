@@ -43,3 +43,10 @@ To start the services, follow these steps:
     docker-compose up -d
 
 5. When containers are running, you may access the consumer service at http://localhost:8083
+
+## Tests
+The project include integration tests for supplier-service, ensuring correctness in functionality.
+These tests can be found in the tests directory and run independently.
+
+   ```bash
+   mvn test
